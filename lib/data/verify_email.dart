@@ -100,8 +100,10 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                     ElevatedButton(
                       onPressed: () {
                         FirebaseAuth.instance.signOut();
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (ctx) => const StartScreen()));
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (ctx) => const StartScreen()),
+                            (Route route) => false);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

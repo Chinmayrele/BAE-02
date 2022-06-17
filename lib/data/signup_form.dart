@@ -47,12 +47,20 @@ class _SignUpFormState extends State<SignUpForm> {
       });
       // if (widget.isLogin) {
       print("EMAIL IN LOGIN SUBMIT FORM: $email");
+      
+      print('1');
       authResult = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email.trim(), password: password);
       // fetch user
+      if (!FirebaseAuth.instance.currentUser!.emailVerified) {
+        print('0');
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (ctx) => const VerifyEmailPage()));
+      } else {
+      print('2');
       if (authResult!.user != null) {
         // final String isVisited = await getVisitingFlag();
-
+        print('3');
         final userData = await FirebaseFirestore.instance
             .collection('profile')
             .doc(authResult!.user!.uid)
@@ -88,6 +96,7 @@ class _SignUpFormState extends State<SignUpForm> {
         email = '';
         password = '';
         print("EMAIL IN LOGIN AFTER 82 $email");
+        }
         // }
       }
     } on PlatformException catch (err) {
@@ -103,6 +112,7 @@ class _SignUpFormState extends State<SignUpForm> {
         _isLoading = false;
       });
     } catch (err) {
+      print("ERROR IS: ${err.toString()}");
       ScaffoldMessenger.of(ctx).showSnackBar(
         SnackBar(
           content: const Text('User not found! Please sign in first'),
@@ -142,9 +152,10 @@ class _SignUpFormState extends State<SignUpForm> {
           _isLoading = false;
         });
       }
-      email = '';
-      password = '';
-      username = '';
+
+      // email = '';
+      // password = '';
+      // username = '';
     } on PlatformException catch (err) {
       var message = 'ERROR!!! Please Check Your Credentials';
       if (err.message != null) {

@@ -125,22 +125,12 @@ class InfoProviders with ChangeNotifier {
       final distance =
           Geolocator.distanceBetween(lati, longi, us.latitude, us.longitude);
       //  IF GENDER && YOURSELF REMOVE CONDITION   && !_userInfo[0].isViewed.contains(us.userId)
-      if (us.gender.toLowerCase() == genderPreference.toLowerCase() &&
+      if (us.userId.isNotEmpty &&
+          us.gender.toLowerCase() == genderPreference.toLowerCase() &&
           us.userId != FirebaseAuth.instance.currentUser!.uid &&
           distance < 100000 &&
           !_userInfo[0].isViewed.contains(us.userId)) {
         _usersData.add(us);
-        // if (_usersData.isEmpty) {
-        //   _usersData.add(us);
-        // }
-        // for (int j = 0; j < _usersData.length; j++) {
-        //   if (_usersData[j].userId == us.userId) {
-        //     // _usersData.add(us);
-        //     flag = 0;
-        //   }
-        // }
-        // if (flag == 1) {
-        // }
       }
     }
     notifyListeners();
