@@ -101,39 +101,44 @@ class InfoProviders with ChangeNotifier {
     //debugPrint("DATA SIZE IMP: ${data.size}");
     debugPrint("DATA DOCS LENGTH: ${data.docs.length}");
     final e = data.docs;
+    _usersData.clear();
     for (int i = 0; i < e.length; i++) {
-      print("USER DATA ID: ${e[i]['userId']}");
-      final us = UserInfos(
-          userId: e[i]['userId'] ?? '',
-          name: e[i]['name'] ?? '',
-          email: e[i]['email'] ?? '',
-          phoneNo: e[i]['phoneNo'] ?? '',
-          gender: e[i]['gender'] ?? '',
-          genderChoice: e[i]['genderChoice'] ?? '',
-          iLike: e[i]['iLike'] ?? [],
-          isViewed: e[i]['isViewed'] ?? [],
-          whoLikedMe: e[i]['whoLikedMe'] ?? [],
-          intersectionLikes: e[i]['intersectionLikes'] ?? [],
-          latitude: e[i]['latitude'] ?? 0,
-          longitude: e[i]['longitude'] ?? 0,
-          age: e[i]['age'] ?? 0,
-          about: e[i]['about'] ?? '',
-          interest: e[i]['interest'] ?? '',
-          address: e[i]['address'] ?? '',
-          imageUrls: e[i]['imageUrls'] ?? [],
-          isSubscribed: e[i]['isSubscribed'] ?? false);
-      final distance =
-          Geolocator.distanceBetween(lati, longi, us.latitude, us.longitude);
-      //  IF GENDER && YOURSELF REMOVE CONDITION   && !_userInfo[0].isViewed.contains(us.userId)
-      if (us.userId.isNotEmpty &&
-          us.gender.toLowerCase() == genderPreference.toLowerCase() &&
-          us.userId != FirebaseAuth.instance.currentUser!.uid &&
-          distance < 100000 &&
-          !_userInfo[0].isViewed.contains(us.userId)) {
-        _usersData.add(us);
+      if (!e[i].data().containsKey('userId')) {
+        continue;
+      } else {
+        // print("USER DATA ID: ${e[i]['userId']}");
+        final us = UserInfos(
+            userId: e[i]['userId'] ?? '',
+            name: e[i]['name'] ?? '',
+            email: e[i]['email'] ?? '',
+            phoneNo: e[i]['phoneNo'] ?? '',
+            gender: e[i]['gender'] ?? '',
+            genderChoice: e[i]['genderChoice'] ?? '',
+            iLike: e[i]['iLike'] ?? [],
+            isViewed: e[i]['isViewed'] ?? [],
+            whoLikedMe: e[i]['whoLikedMe'] ?? [],
+            intersectionLikes: e[i]['intersectionLikes'] ?? [],
+            latitude: e[i]['latitude'] ?? 0,
+            longitude: e[i]['longitude'] ?? 0,
+            age: e[i]['age'] ?? 0,
+            about: e[i]['about'] ?? '',
+            interest: e[i]['interest'] ?? '',
+            address: e[i]['address'] ?? '',
+            imageUrls: e[i]['imageUrls'] ?? [],
+            isSubscribed: e[i]['isSubscribed'] ?? false);
+        final distance =
+            Geolocator.distanceBetween(lati, longi, us.latitude, us.longitude);
+        //  IF GENDER && YOURSELF REMOVE CONDITION   && !_userInfo[0].isViewed.contains(us.userId)
+        if (us.userId.isNotEmpty &&
+            us.gender.toLowerCase() == genderPreference.toLowerCase() &&
+            us.userId != FirebaseAuth.instance.currentUser!.uid &&
+            distance < 100000 &&
+            !_userInfo[0].isViewed.contains(us.userId)) {
+          _usersData.add(us);
+        }
       }
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   Future<QueAnsInfo> fetchQueAnsData(String useId) async {
@@ -185,6 +190,7 @@ class InfoProviders with ChangeNotifier {
       imageUrls: e['imageUrls'],
       isSubscribed: e['isSubscribed'] ?? false,
     );
+    _userInfo.clear();
     _userInfo.add(userInf);
     //debugPrint("FETCH PROFILE USER DATA PROVIDER NAME: ${_userInfo[0].name}");
     notifyListeners();

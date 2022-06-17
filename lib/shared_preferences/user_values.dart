@@ -20,10 +20,14 @@ Future<void> setVisitingFlag({
     };
   } else {
     mp = json.decode(alreadyVisited);
-    if (isProfileDone) mp['isProfileDone'] = true;
-    if (isLoginDone) mp['isLoginDone'] = true;
-    if (isLocDone) mp['isLocDone'] = true;
-    if (isQueAnsDone) mp['isQueAnsDone'] = true;
+    // if (isProfileDone)
+     mp['isProfileDone'] = isProfileDone;
+    // if (isLoginDone) 
+    mp['isLoginDone'] = isLoginDone;
+    // if (isLocDone) 
+    mp['isLocDone'] = isLocDone;
+    // if (isQueAnsDone) 
+    mp['isQueAnsDone'] = isQueAnsDone;
   }
 
   String setString = json.encode(mp);

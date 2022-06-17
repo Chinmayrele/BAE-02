@@ -35,14 +35,11 @@ class _AccountScreenState extends State<AccountScreen> {
   late InfoProviders result;
   late List<UserInfos> userData;
   bool isLoading = true;
-  String urlDownload = '';
-  File? _imageFile;
-  UploadTask? task;
-  List<String> imageUrlsUser = [];
   List<dynamic> imageUser = [];
 
   @override
   void initState() {
+    debugPrint("INIT STATE OF ACCOUNT SCREEN CALLED.....");
     result = Provider.of<InfoProviders>(context, listen: false);
     result.fetchUSerProfileData().then((value) {
       setState(() {
@@ -57,48 +54,6 @@ class _AccountScreenState extends State<AccountScreen> {
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
   }
-
-  // Future<void> getPicture() async {
-  //   try {
-  //     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //     if (image != null) {
-  //       final imageTemp = File(image.path);
-  //       setState(() {
-  //         _imageFile = imageTemp;
-  //       });
-  //     }
-  //   } on PlatformException catch (err) {
-  //     //debugPrint('Failed to Pick up the Image: $err');
-  //   }
-  // }
-
-  // Future<void> convertToUrl() async {
-  //   try {
-  //     if (_imageFile != null) {
-  //       final fileName = _imageFile!.path;
-  //       final destination = 'files/$fileName';
-  //       final ref = FirebaseStorage.instance.ref(destination);
-  //       task = ref.putFile(_imageFile!);
-  //       if (task == null) {
-  //         return;
-  //       }
-  //       final snapshot = await task!.whenComplete(() {});
-  //       urlDownload = await snapshot.ref.getDownloadURL();
-  //       //debugPrint('DOWNLOAD URL: $urlDownload');
-  //       imageUser.add(urlDownload);
-  //       FirebaseFirestore.instance
-  //           .collection('profile')
-  //           .doc(FirebaseAuth.instance.currentUser!.uid)
-  //           .update({
-  //             "imageUrls": imageUser,
-  //           });
-  //       imageUrlsUser.add(urlDownload);
-  //       setState(() {});
-  //     }
-  //   } on FirebaseException catch (e) {
-  //     //debugPrint('Error Uploading: $e');
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -121,12 +76,11 @@ class _AccountScreenState extends State<AccountScreen> {
       child: Column(
         children: [
           ClipPath(
-            clipper: OvalBottomBorderClipper(),
+            // clipper: OvalBottomBorderClipper(),
             child: Container(
               width: size.width,
-              height: size.height * 0.53,
-              decoration:
-                  BoxDecoration(color: ColorConstants.kWhite, boxShadow: [
+              height: size.height * 0.5,
+              decoration: BoxDecoration(color: Colors.white38, boxShadow: [
                 BoxShadow(
                   color: ColorConstants.kGrey.withOpacity(0.1),
                   spreadRadius: 10,
@@ -135,7 +89,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
               ]),
               child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30, bottom: 60),
+                padding: const EdgeInsets.only(left: 30, right: 30, bottom: 45),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -182,7 +136,9 @@ class _AccountScreenState extends State<AccountScreen> {
                     Text(
                       userData[0].name + ", " + userData[0].age.toString(),
                       style: const TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.w600),
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
                     ),
                     const SizedBox(
                       height: 20,
@@ -220,7 +176,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 child: Icon(
                                   Icons.workspace_premium_outlined,
                                   size: 35,
-                                  color: ColorConstants.kGrey.withOpacity(0.8),
+                                  color: ColorConstants.kBlack.withOpacity(0.8),
                                 ),
                               ),
                             ),
@@ -232,7 +188,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
-                                color: ColorConstants.kGrey.withOpacity(0.8),
+                                color: ColorConstants.kBlack.withOpacity(0.8),
                               ),
                             )
                           ],
@@ -285,7 +241,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                     color:
-                                        ColorConstants.kGrey.withOpacity(0.8)),
+                                        ColorConstants.kBlack.withOpacity(0.8)),
                               )
                             ],
                           ),
@@ -302,7 +258,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 await _signOut();
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
-                                        builder: (ctx) => const StartScreen()),
+                                        builder: (ctx) => const SplashScreen()),
                                     (Route route) => false);
                                 setState(() {});
                               },
@@ -327,7 +283,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 child: Icon(
                                   Icons.logout,
                                   size: 35,
-                                  color: ColorConstants.kGrey.withOpacity(0.8),
+                                  color: ColorConstants.kBlack.withOpacity(0.8),
                                 ),
                               ),
                             ),
@@ -339,7 +295,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
-                                color: ColorConstants.kGrey.withOpacity(0.8),
+                                color: ColorConstants.kBlack.withOpacity(0.8),
                               ),
                             )
                           ],
@@ -412,70 +368,11 @@ class _ImageContainerState extends State<ImageContainer> {
             .update({
           'imageUrls': widget.imageList,
         });
-        // FirebaseFirestore.instance
-        //     .collection('profile')
-        //     .doc(FirebaseAuth.instance.currentUser!.uid)
-        //     .collection('imageList')
-        //     .doc(FirebaseAuth.instance.currentUser!.uid)
-        //     .set({
-        //   'imageList': imageUrlsUser,
-        // });
-        //     .add({
-        //   'imageList': imageUrlsUser,
-        // });
         setState(() {});
-        // _editedProfile = UserInfos(
-        //   userId: _editedProfile.userId,
-        //   name: _editedProfile.name,
-        //   email: _editedProfile.email,
-        //   phoneNo: _editedProfile.phoneNo,
-        //   gender: _editedProfile.gender,
-        //   genderChoice: _editedProfile.genderChoice,
-        //   age: _editedProfile.age,
-        //   about: _editedProfile.about,
-        //   interest: _editedProfile.interest,
-        //   address: _editedProfile.address,
-        //   imageUrls: imageUrlsUser,
-        // );
       }
     } on FirebaseException catch (e) {
       //debugPrint('Error Uploading: $e');
     }
-  }
-
-  @override
-  void initState() {
-    callImageList();
-    super.initState();
-  }
-
-  callImageList() async {
-    // final data = FirebaseFirestore.instance
-    //     .collection('profile')
-    //     .doc(FirebaseAuth.instance.currentUser!.uid)
-    //     .collection('imageList')
-    //     .doc(FirebaseAuth.instance.currentUser!.uid)
-    //     .get()
-    //     .then((data) {
-    //   final e = data.data();
-    //   //debugPrint(e.toString());
-    //   imageUrlsUser = e!['imageList'];
-    //   setState(() {
-    //     isLoad = false;
-    //   });
-    // });
-    // final data = await FirebaseFirestore.instance
-    //     .collection('profile')
-    //     .doc(FirebaseAuth.instance.currentUser!.uid)
-    //     .get();
-    // // .then((data) {
-    // final e = data.data();
-    // // //debugPrint(e.toString());
-    // imageUrlsUser = e!['imageUrls'];
-    // setState(() {
-    //   isLoad = false;
-    //   // });
-    // });
   }
 
   @override

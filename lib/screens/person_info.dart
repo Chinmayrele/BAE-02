@@ -10,7 +10,7 @@ class PersonInfo extends StatefulWidget {
   final bool isEdit;
   // final double latitude;
   // final double longitude;
-  PersonInfo({
+  const PersonInfo({
     Key? key,
     required this.isEdit,
     // this.latitude = 0,
@@ -25,55 +25,42 @@ class _PersonInfoState extends State<PersonInfo> {
   double latitude = 0;
   double longitude = 0;
   bool isLocLoading = true;
-  @override
-  void initState() {
-    // getLocationUser();
-    super.initState();
-  }
-
-  // getLocationUser() async {
-  //   final location = await getLocationFlag();
-  //   if (location.isNotEmpty) {
-  //     Map<String, dynamic> mp = json.decode(location);
-  //     latitude = mp['latitude'];
-  //     longitude = mp['longitude'];
-  //     setState(() {
-  //       isLocLoading = false;
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-                children: [
-                  const SizedBox(height: 50),
-                  Row(
-                    children: const [
-                      // IconButton(
-                      //     onPressed: () {},
-                      //     icon: const Icon(
-                      //       Icons.arrow_back,
-                      //       color: Colors.pink,
-                      //       size: 26,
-                      //     )),
-                      SizedBox(width: 22),
-                      Text(
-                        'Fill Profile',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  // UserInfoForm(
-                  //     latitude: widget.latitude, longitude: widget.longitude),
-                  UserInfoForm(),
-                ],
-              ),
+          children: [
+            const SizedBox(height: 50),
+            Row(
+              children: [
+                widget.isEdit
+                    ? IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.pink,
+                          size: 26,
+                        ))
+                    : const SizedBox(),
+                const SizedBox(width: 22),
+                const Text(
+                  'Fill Profile',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            // UserInfoForm(
+            //     latitude: widget.latitude, longitude: widget.longitude),
+            UserInfoForm(isEdit: widget.isEdit),
+          ],
+        ),
       ),
     );
   }

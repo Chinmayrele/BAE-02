@@ -35,39 +35,16 @@ class _CardsStackWidgetState extends State<CardsStackWidget> {
 
   @override
   void initState() {
-    print("ID FIRST PAGE: ${FirebaseAuth.instance.currentUser!.uid}");
+    // print("ID FIRST PAGE: ${FirebaseAuth.instance.currentUser!.uid}");
+    debugPrint("INIT STATE OF CARD STACK CALLED");
     result = Provider.of<InfoProviders>(context, listen: false);
     result.fetchUSerProfileData().then((_) {
       userProfileDataResult = result.userInfo;
       iLike = userProfileDataResult[0].iLike;
       isSubscribedUser = userProfileDataResult[0].isSubscribed;
-      // countLikes = iLike.length;
-      // tempILike = userProfileDataResult[0].iLike;
       isViewed = userProfileDataResult[0].isViewed;
       whoLikedMe = userProfileDataResult[0].whoLikedMe;
       intersectionOfLikes = userProfileDataResult[0].intersectionLikes;
-      // for (var i in iLike) {
-      //   for (var j in whoLikedMe) {
-      //     if (i == j) {
-      //       if (!intersectionOfLikes.contains(i)) {
-      //         intersectionOfLikes.add(i);
-      //         FirebaseFirestore.instance
-      //             .collection('profile')
-      //             .doc(FirebaseAuth.instance.currentUser!.uid)
-      //             .update({
-      //           "intersectionLikes": intersectionOfLikes,
-      //         }).then((_) {
-      //           isUpdateLoad = false;
-      //         });
-      //       }
-      //     }
-      //   }
-      // }
-      //debugPrint(
-      //"LENGTH OF USERPROFILE DATA:  ${userProfileDataResult.length}");
-      //debugPrint('EXPLORE SCREEN INIT STATE 1st PRINT');
-      //debugPrint(
-      //"GENDER CHOICE USER: ${userProfileDataResult[0].genderChoice}");
       result
           .fetchUsersData(
         userProfileDataResult[0].genderChoice,
@@ -113,6 +90,16 @@ class _CardsStackWidgetState extends State<CardsStackWidget> {
       // itemLength = explore_json.length;
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    userProfileDataResult = [];
+    iLike = [];
+    isViewed = [];
+    whoLikedMe = [];
+    intersectionOfLikes = [];
+    super.dispose();
   }
 
   @override

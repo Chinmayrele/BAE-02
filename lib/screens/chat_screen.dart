@@ -27,7 +27,7 @@ class _ChatScreenState extends State<ChatScreen> {
   // int indexR = 0;
   @override
   void initState() {
-    //debugPrint('INIT STATE OF CHAT SCREEN CALLED........');
+    debugPrint('INIT STATE OF CHAT SCREEN CALLED........');
     result = Provider.of<InfoProviders>(context, listen: false);
     result.fetchUSerProfileData().then((value) {
       intersectionUid = result.userInfo[0].intersectionLikes;

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../common/color_constants.dart';
-import '../data/likes_json.dart';
 import '../models/user_info.dart';
 
 /*
@@ -27,7 +26,7 @@ class _LikesPageState extends State<LikesScreen> {
   bool isLoading = true;
   @override
   void initState() {
-    //debugPrint("INTI STATE OF LIKE SCREEN IS CALLED>>>>>>");
+    debugPrint("INTI STATE OF LIKE SCREEN IS CALLED>>>>>>");
     result = Provider.of<InfoProviders>(context, listen: false);
     result.fetchUSerProfileData().then((value) {
       userInf = result.userInfo[0].whoLikedMe;
@@ -166,65 +165,62 @@ class _LikesPageState extends State<LikesScreen> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      likes_json[index]['active']
-                                          ? Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 8, bottom: 8),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    width: 8,
-                                                    height: 8,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      color:
-                                                          ColorConstants.kGreen,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  const Text(
-                                                    "Recently Active",
-                                                    style: TextStyle(
-                                                      color:
-                                                          ColorConstants.kWhite,
-                                                      fontSize: 14,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          : Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 8, bottom: 8),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    width: 8,
-                                                    height: 8,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      color:
-                                                          ColorConstants.kGrey,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  const Text(
-                                                    "Offline",
-                                                    style: TextStyle(
-                                                      color:
-                                                          ColorConstants.kWhite,
-                                                      fontSize: 14,
-                                                    ),
-                                                  )
-                                                ],
+                                      // likes_json[index]['active']
+                                      //     ? Padding(
+                                      //         padding: const EdgeInsets.only(
+                                      //             left: 8, bottom: 8),
+                                      //         child: Row(
+                                      //           children: [
+                                      //             Container(
+                                      //               width: 8,
+                                      //               height: 8,
+                                      //               decoration:
+                                      //                   const BoxDecoration(
+                                      //                 color:
+                                      //                     ColorConstants.kGreen,
+                                      //                 shape: BoxShape.circle,
+                                      //               ),
+                                      //             ),
+                                      //             const SizedBox(
+                                      //               width: 5,
+                                      //             ),
+                                      //             const Text(
+                                      //               "Recently Active",
+                                      //               style: TextStyle(
+                                      //                 color:
+                                      //                     ColorConstants.kWhite,
+                                      //                 fontSize: 14,
+                                      //               ),
+                                      //             )
+                                      //           ],
+                                      //         ),
+                                      //       )
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8, bottom: 8),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              width: 8,
+                                              height: 8,
+                                              decoration: const BoxDecoration(
+                                                color: ColorConstants.kGrey,
+                                                shape: BoxShape.circle,
                                               ),
                                             ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              likeData[index].name,
+                                              style: const TextStyle(
+                                                color: ColorConstants.kWhite,
+                                                fontSize: 14,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),

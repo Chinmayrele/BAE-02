@@ -47,7 +47,7 @@ class _SignUpFormState extends State<SignUpForm> {
       });
       // if (widget.isLogin) {
       print("EMAIL IN LOGIN SUBMIT FORM: $email");
-      
+
       print('1');
       authResult = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email.trim(), password: password);
@@ -57,45 +57,37 @@ class _SignUpFormState extends State<SignUpForm> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (ctx) => const VerifyEmailPage()));
       } else {
-      print('2');
-      if (authResult!.user != null) {
-        // final String isVisited = await getVisitingFlag();
-        print('3');
-        final userData = await FirebaseFirestore.instance
-            .collection('profile')
-            .doc(authResult!.user!.uid)
-            .get();
-        print(userData.data().toString());
-        final isProfileComplete =
-            userData.data()!['isProfileComplete'] ?? false;
-        final isQNAcomplete = userData.data()!['isQNAcomplete'] ?? false;
-        print('$isProfileComplete || $isQNAcomplete');
-        await setVisitingFlag(
-          isLoginDone: true,
-          isProfileDone: isProfileComplete,
-          isQueAnsDone: isQNAcomplete,
-        );
-        if (isProfileComplete) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (ctx) => const HomePageScreen()));
-          // } else if (mp.containsKey('isLocDone') && mp['isLocDone']) {
-          //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-          //       builder: (ctx) => PersonInfo(
-          //             isEdit: false,
-          //           )));
-        } else if (isQNAcomplete) {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (ctx) => PersonInfo(
-                    isEdit: false,
-                  )));
-        } else {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (ctx) => const QueScreen()));
-        }
-        print("EMAIL IN LOGIN BEFORE 79 $email");
-        email = '';
-        password = '';
-        print("EMAIL IN LOGIN AFTER 82 $email");
+        print('2');
+        if (authResult!.user != null) {
+          // final String isVisited = await getVisitingFlag();
+          print("user ID: ${authResult!.user!.uid}");
+          print('3');
+          final userData = await FirebaseFirestore.instance
+              .collection('profile')
+              .doc(authResult!.user!.uid)
+              .get();
+          print(userData.data().toString());
+          final isProfileComplete =
+              userData.data()!['isProfileComplete'] ?? false;
+          final isQNAcomplete = userData.data()!['isQNAcomplete'] ?? false;
+          print('$isProfileComplete || $isQNAcomplete');
+          await setVisitingFlag(
+            isLoginDone: true,
+            isProfileDone: isProfileComplete,
+            isQueAnsDone: isQNAcomplete,
+          );
+          if (isProfileComplete) {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (ctx) => const HomePageScreen()));
+          } else if (isQNAcomplete) {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (ctx) => const PersonInfo(
+                      isEdit: false,
+                    )));
+          } else {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (ctx) => const QueScreen()));
+          }
         }
         // }
       }
@@ -423,7 +415,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     : _signUpForm(emailController.text, passwordController.text,
                         userNameController.text, false, context);
               },
-              child: widget.isLoading
+              child: _isLoading
                   ? const CircularProgressIndicator(
                       color: Colors.white,
                     )
