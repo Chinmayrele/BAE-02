@@ -16,60 +16,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  var _isLoading = false;
-  // void _signUp(String email, String password, String username, bool isLogin,
-  //     BuildContext ctx) async {
-  //   UserCredential authResult;
-  //   try {
-  //     setState(() {
-  //       _isLoading = true;
-  //     });
-  //     if (!isLogin) {
-  //       authResult = await FirebaseAuth.instance
-  //           .createUserWithEmailAndPassword(email: email, password: password);
-  //       //SAVING SOMETHING TO FIRESTORE DATA
-  //       await FirebaseFirestore.instance
-  //           .collection('profile')
-  //           .doc(FirebaseAuth.instance.currentUser!.uid)
-  //           .set({
-  //         'username': username,
-  //         'email': email,
-  //       });
-  //       if (authResult.user != null) {
-  //         Navigator.of(context).pushReplacement(
-  //             MaterialPageRoute(builder: (ctx) => const VerifyEmailPage()));
-  //       }
-  //       setState(() {
-  //         _isLoading = false;
-  //       });
-  //     }
-  //     email = '';
-  //     password = '';
-  //     username = '';
-  //   } on PlatformException catch (err) {
-  //     var message = 'ERROR!!! Please Check Your Credentials';
-  //     if (err.message != null) {
-  //       message = err.message.toString();
-  //     }
-  //     //debugPrint('$Error' + message);
-  //     ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
-  //       content: Text(message),
-  //       backgroundColor: Theme.of(ctx).errorColor,
-  //     ));
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   } catch (err) {
-  //     ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
-  //       content: const Text('Email already exists. Log-In yourself!'),
-  //       backgroundColor: Theme.of(ctx).errorColor,
-  //     ));
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //     //debugPrint(err.toString());
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +49,6 @@ class _SignUpState extends State<SignUp> {
             ),
             SignUpForm(
               isLogin: false,
-              // submitFn: _signUp,
-              isLoading: _isLoading,
             ),
           ],
         ),

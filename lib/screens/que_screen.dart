@@ -1,4 +1,3 @@
-import 'package:bar_chat_dating_app/data/location_permi.dart';
 import 'package:bar_chat_dating_app/models/que_ans_info.dart';
 import 'package:bar_chat_dating_app/providers/info_provider.dart';
 import 'package:bar_chat_dating_app/screens/person_info.dart';

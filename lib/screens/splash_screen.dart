@@ -1,15 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:bar_chat_dating_app/data/location_permi.dart';
 import 'package:bar_chat_dating_app/screens/home_page_screen.dart';
 import 'package:bar_chat_dating_app/screens/person_info.dart';
 import 'package:bar_chat_dating_app/screens/que_screen.dart';
 import 'package:bar_chat_dating_app/screens/start_screen.dart';
 import 'package:bar_chat_dating_app/shared_preferences/user_values.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -47,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
         // }
         else if (mp.containsKey('isQueAnsDone') && mp['isQueAnsDone']) {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (ctx) => PersonInfo(
+              builder: (ctx) => const PersonInfo(
                     isEdit: false,
                   )));
         } else if(mp.containsKey('isLoginDone') && mp['isLoginDone']){

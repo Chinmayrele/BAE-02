@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:bar_chat_dating_app/shared_preferences/location_value.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_tinder_clone_app/data/user_info_form.dart';
 

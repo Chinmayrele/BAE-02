@@ -14,14 +14,11 @@ import '../shared_preferences/user_values.dart';
 
 class SignUpForm extends StatefulWidget {
   final bool isLogin;
-  final bool isLoading;
   // final void Function(String email, String password, String username,
   //     bool isLogin, BuildContext context) submitFn;
   const SignUpForm({
     Key? key,
     required this.isLogin,
-    // required this.submitFn,
-    required this.isLoading,
   }) : super(key: key);
 
   @override
@@ -195,9 +192,6 @@ class _SignUpFormState extends State<SignUpForm> {
     emailController.dispose();
     passwordController.dispose();
     userNameController.dispose();
-    _emailAddress = '';
-    _userName = '';
-    _password = '';
     super.dispose();
   }
 

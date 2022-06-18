@@ -132,7 +132,7 @@ class InfoProviders with ChangeNotifier {
         if (us.userId.isNotEmpty &&
             us.gender.toLowerCase() == genderPreference.toLowerCase() &&
             us.userId != FirebaseAuth.instance.currentUser!.uid &&
-            distance < 100000 &&
+            distance < 150000 &&
             !_userInfo[0].isViewed.contains(us.userId)) {
           _usersData.add(us);
         }

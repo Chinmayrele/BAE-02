@@ -52,6 +52,8 @@ class _PaymentIntegrateState extends State<PaymentIntegrate> {
       "isSubscribed": true,
     });
     setState(() {});
+    Navigator.of(context).pop();
+    snackBar('Payement Succesfully done!!!');
     //debugPrint(
     //"RESPONSE ORDERID: ${response.orderId}\nPAYMENT ID ${response.paymentId}\nSIGNATURE ${response.signature}");
   }
@@ -184,8 +186,9 @@ class _PaymentIntegrateState extends State<PaymentIntegrate> {
                         ),
                       ),
                       const SizedBox(height: 25),
-                      buildRowText('Get Every Access', size),
-                      buildRowText('Start a conversation with you Match', size),
+                      buildRowText('Get Every Access to our app', size),
+                      buildRowText(
+                          'Start a conversation with your Match', size),
                       buildRowText('See who liked you', size),
                       buildRowText(
                           'Find your perfect match faster with premium', size),
@@ -229,6 +232,8 @@ class _PaymentIntegrateState extends State<PaymentIntegrate> {
       'amount': '$amountToPay',
       'name': 'GAUTHAM RAJ',
       'description': 'Premium Member for App',
+      'retry': {'enabled': true, 'max_count': 1},
+      'send_sms_hash': true,
       'prefill': {'contact': '7338714037', 'email': 'gauraj390@gmail.com'},
       // "external": {
       //   "wallets": ["paytm"]

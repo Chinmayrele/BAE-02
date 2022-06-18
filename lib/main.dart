@@ -1,6 +1,5 @@
 import 'package:bar_chat_dating_app/providers/info_provider.dart';
 import 'package:bar_chat_dating_app/screens/splash_screen.dart';
-import 'package:bar_chat_dating_app/screens/start_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,11 +28,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(scaffoldBackgroundColor: Colors.black),
         home: const SplashScreen(),
-        // home: const ChatScreen(),
-        // routes: {
-        //   StartScreen.routeName: (ctx) => const StartScreen(),
-        //   // '/call_page': (context) => const CallPage(),
-        // },
       ),
     );
   }
